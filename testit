@@ -1,0 +1,28 @@
+#!/bin/bash
+set -eou pipefail
+
+if [[ ! -x pathnormalize ]]
+then
+	go build .
+fi
+if [[ ! -x pathnormalize ]]
+then
+	echo "Need pathnormalize executable"
+	exit 1
+fi
+
+while read INPUT OUTPUT
+do
+	REAL=$(./pathnormalize "$INPUT")
+	if [[ $REAL != $OUTPUT ]]
+	then
+		echo "Input:          $INPUT"
+		echo "Output:         $REAL"
+		echo "Desired output: $OUTPUT"
+	fi
+done << ENDTESTS
+/usr/bin/../bin/./scripts/../ /usr/bin/
+/ /
+/usr/./././. /usr/
+///// /
+ENDTESTS
