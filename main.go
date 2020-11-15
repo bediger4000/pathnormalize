@@ -45,5 +45,9 @@ func main() {
 	}
 
 	path := strings.Join(normalizedPath, "/")
-	fmt.Printf("/%s\n", path)
+	if len(path) > 0 {
+		fmt.Printf("/%s/\n", path)
+	} else {
+		fmt.Printf("/%s\n", path)
+	}
 }
